@@ -5,10 +5,10 @@ public class LinqQueries
   private List<Book> librosCollection = new List<Book>();
   public LinqQueries()
   {
-    using(StreamReader reader = new StreamReader("books.json"))
+    using (StreamReader reader = new StreamReader("books.json"))
     {
       string json = reader.ReadToEnd();
-      this.librosCollection = JsonSerializer.Deserialize<List<Book>>(json, new JsonSerializerOptions() {PropertyNameCaseInsensitive = true});
+      this.librosCollection = JsonSerializer.Deserialize<List<Book>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
     }
   }
 
@@ -28,5 +28,40 @@ public class LinqQueries
     // return librosCollection.Where(p => p.PageCount >= 250).Where(p => p.Title.Contains("action", StringComparison.OrdinalIgnoreCase));
     // return from l in librosCollection where l.PageCount >= 250 & l.Title.Contains("Action") select l;
     return librosCollection.Where(p => p.PageCount >= 250 && p.Title.Contains("action", StringComparison.OrdinalIgnoreCase));
+  }
+
+  public bool TodosLosLibrosTienenStatus()
+  {
+    return librosCollection.All(p => p.Status != String.Empty);
+  }
+
+  public bool LibrosPublicadosEn2005()
+  {
+    return librosCollection.Any(p => p.PublishedDate.Year == 2005);
+  }
+
+  public IEnumerable<Book> LibrosDePython()
+  {
+    return librosCollection.Where(p => p.Categories.Contains("Python"));
+  }
+
+  public IEnumerable<Book> LibrosDeJavaPorNombres()
+  {
+    return librosCollection.Where(p => p.Categories.Contains("Java")).OrderBy(p => p.Title);
+  }
+
+  public IEnumerable<Book> LibrosConMasDe450Paginas()
+  {
+    return librosCollection.Where(p => p.PageCount >= 450).OrderByDescending(p => p.PageCount);
+  }
+
+   public IEnumerable<Book> Los3LibrosMasRecienteEnJava()
+  {
+    return librosCollection.Where(p => p.Categories.Contains("Java")).OrderByDescending(p => p.PublishedDate).Take(3);
+  }
+
+   public IEnumerable<Book> LibrosConMasDe400Paginas3y4()
+  {
+    return librosCollection.Where(p => p.PageCount > 400).Skip(2).Take(2);
   }
 }
