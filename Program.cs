@@ -18,3 +18,5 @@ void ImprimirValores(IEnumerable<Book> listadelibros)
 // Console.WriteLine($"Libros con mas de 200 paginas y menos de 500: {queries.LibrosConPagiasEntre200y500()}");
 // Console.WriteLine($"Fecha del Libro Mas antiguo: {queries.FechaDePublicacionMenor()}");
 // Console.WriteLine($"La mayor cantidad de paginas de un libro es: {queries.LibroConMasPaginas()}");
+// Book? Libro = queries.LibroConFechaPublicacionMasReciente();
+// Console.WriteLine($"El libro mas reciente: {Libro.Title}, y la fecha de publicacion es {Libro.PublishedDate:d}");
