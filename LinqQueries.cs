@@ -68,7 +68,7 @@ public class LinqQueries
   public IEnumerable<Book> TresPrimerosLibrosDeLaColecion()
   {
     return librosCollection.Take(3)
-    .Select(p => new Book(){ Title = p.Title, PageCount = p.PageCount });
+    .Select(p => new Book() { Title = p.Title, PageCount = p.PageCount });
   }
 
   public int LibrosConPagiasEntre200y500()
@@ -88,11 +88,28 @@ public class LinqQueries
 
   public Book? LibrosConMenorCantidadDePagianas()
   {
-    return librosCollection.Where(p=>p.PageCount > 0).MinBy(p => p.PageCount);
+    return librosCollection.Where(p => p.PageCount > 0).MinBy(p => p.PageCount);
   }
 
   public Book? LibroConFechaPublicacionMasReciente()
   {
-    return librosCollection.MaxBy(p=>p.PublishedDate);
+    return librosCollection.MaxBy(p => p.PublishedDate);
+  }
+
+  public int TotalDePaginasDeLosLibrosConPaginasEntre0y500()
+  {
+    return librosCollection.Where(p => p.PageCount > 0 && p.PageCount < 500).Sum(p => p.PageCount);
+  }
+
+  public string LibrosPublicadosDespuesDe2015()
+  {
+    return librosCollection.Where(p => p.PublishedDate.Year > 2015)
+    .Aggregate("", (TitulosLibros, next) =>
+    {
+      return TitulosLibros += TitulosLibros != "" ? " - " + next.Title : next.Title;
+      // return TitulosLibros += TitulosLibros != String.Empty ? " - " + next.Title : next.Title;
+      // return TitulosLibros += next.Title + ", ";
+
+    });
   }
 }

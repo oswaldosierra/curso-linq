@@ -20,3 +20,4 @@ void ImprimirValores(IEnumerable<Book> listadelibros)
 // Console.WriteLine($"La mayor cantidad de paginas de un libro es: {queries.LibroConMasPaginas()}");
 // Book? Libro = queries.LibroConFechaPublicacionMasReciente();
 // Console.WriteLine($"El libro mas reciente: {Libro.Title}, y la fecha de publicacion es {Libro.PublishedDate:d}");
+Console.WriteLine($"LibrosPublicadosDespuesDe2015: {queries.LibrosPublicadosDespuesDe2015()}");
