@@ -55,13 +55,34 @@ public class LinqQueries
     return librosCollection.Where(p => p.PageCount >= 450).OrderByDescending(p => p.PageCount);
   }
 
-   public IEnumerable<Book> Los3LibrosMasRecienteEnJava()
+  public IEnumerable<Book> Los3LibrosMasRecienteEnJava()
   {
     return librosCollection.Where(p => p.Categories.Contains("Java")).OrderByDescending(p => p.PublishedDate).Take(3);
   }
 
-   public IEnumerable<Book> LibrosConMasDe400Paginas3y4()
+  public IEnumerable<Book> LibrosConMasDe400Paginas3y4()
   {
     return librosCollection.Where(p => p.PageCount > 400).Skip(2).Take(2);
+  }
+
+  public IEnumerable<Book> TresPrimerosLibrosDeLaColecion()
+  {
+    return librosCollection.Take(3)
+    .Select(p => new Book(){ Title = p.Title, PageCount = p.PageCount });
+  }
+
+  public int LibrosConPagiasEntre200y500()
+  {
+    return librosCollection.Count(p => p.PageCount >= 200 && p.PageCount <= 500);
+  }
+
+  public DateTime FechaDePublicacionMenor()
+  {
+    return librosCollection.Min(p => p.PublishedDate);
+  }
+
+  public int LibroConMasPaginas()
+  {
+    return librosCollection.Max(p => p.PageCount);
   }
 }
