@@ -112,4 +112,27 @@ public class LinqQueries
 
     });
   }
+
+  public double PromedioCaracteresTitulo()
+  {
+    return librosCollection.Average(p => p.Title.Length);
+  }
+
+  public IEnumerable<IGrouping<int, Book>> LibrosPorAnoDespuesDel200()
+  {
+    return librosCollection.Where(p => p.PublishedDate.Year > 2000).GroupBy(p => p.PublishedDate.Year);
+  }
+
+  public ILookup<char, Book> DicionariosDeLibrosPorLetra()
+  {
+    return librosCollection.ToLookup(p => p.Title[0], p => p);
+  }
+
+  public IEnumerable<Book> LibrosConMasDe500PGYPublicadosDespuesDe2005()
+  {
+    var libros500PG = librosCollection.Where(p => p.PageCount > 500);
+    var librosmayor205 = librosCollection.Where(p => p.PublishedDate.Year > 2005);
+
+    return libros500PG.Join(librosmayor205, p => p.Title, x => x.Title, (p, x) => p);
+  }
 }
